@@ -1,4 +1,7 @@
-﻿namespace CSharp.Web.Api.Services
+﻿using System.Collections.Frozen;
+using System.Text.Json.Nodes;
+
+namespace CSharp.Web.Api.Services
 {
     public class ProductService : IProductService
     {
@@ -44,6 +47,57 @@
             Random.Shared.Shuffle(musicians);
 
             return musicians;
+        }
+
+        public FrozenDictionary<int, string> FrozenDictCollection()
+        {
+            var frozenDict = new Dictionary<int, string>()
+            {
+                {2001, "The Fast and the Furious" },
+                {2003, "2 Fast 2 Furious" },
+                {2006, "The Fast and the Furious: Tokyo Drift" },
+                {2009, "Fast & Furious" },
+                {2011, "Fast Five" },
+                {2013, "Fast & Furious 6" },
+                {2015, "Furious 7" },
+                {2017, "The Fate of the Furious" },
+                {2021, "F9" },
+                {2023, "Fast X"}
+            }.ToFrozenDictionary();
+
+            return frozenDict;
+        }
+
+        public FrozenSet<int> FrozenSetCollection()
+        {
+            var frozenSet = new List<int>() { 1,2,3,4,5}.ToFrozenSet();
+
+            return frozenSet;
+        }
+
+        public IDictionary<string, dynamic> JsonNodeExample()
+        {
+            var json = """
+                {
+                "name": "DotNet Core",
+                "version": [3.1, 5, 6, 7, 8],
+                "language": "C#"
+                }
+                """;
+
+            JsonNode? node = JsonNode.Parse(json);
+            JsonNode other = node!.DeepClone();
+            var flag = JsonNode.DeepEquals(node, other);
+
+            JsonArray jsonArray = new JsonArray(1,2,5,4,7,8);
+            IEnumerable<int> values = jsonArray.GetValues<int>().Where(i => i%2==0);
+
+            return new Dictionary<string, dynamic>
+            {
+                { "DeepEquals O/P", flag},
+                { "jsonArray O/P", values }
+            };
+
         }
     }
 }

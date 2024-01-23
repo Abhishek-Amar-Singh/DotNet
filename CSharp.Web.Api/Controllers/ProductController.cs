@@ -30,5 +30,60 @@ namespace CSharp.Web.Api.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("FrozenDictCollection")]
+        public ActionResult FrozenDictCollection()
+        {
+            var response = this._productService.FrozenDictCollection();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("FrozenSetCollection")]
+        public ActionResult FrozenSetCollection()
+        {
+            var response = this._productService.FrozenSetCollection();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("JsonNodeExample")]
+        public ActionResult JsonNodeExample()
+        {
+            var response = this._productService.JsonNodeExample();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("RelationalPattern")]
+        public ActionResult RelationalPattern(decimal score)
+        {
+            if (score is >= 35 and <= 100)
+            {
+                return Ok("Passed the exam.");
+            }
+            else if (score is >=0 and <=34) return Ok("Failed the exam.");
+            else return BadRequest("Invalid input.");
+        }
+
+        [HttpGet]
+        [Route("Any_Exists")]
+        public ActionResult Any_Exists()
+        {
+            List<int> numbers = new List<int>() { 1, 89, -9, 110, 876, 62432, 7, 86, -61};
+
+            var any_status = numbers.Any(x => x > 0);// slow
+            var exists_status = numbers.Exists(x => x > 0);// fast
+
+            return Ok(new
+            {
+                any_status = any_status,
+                exists_status = exists_status
+            });
+        }
     }
 }
