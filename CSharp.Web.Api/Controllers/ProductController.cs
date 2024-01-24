@@ -1,6 +1,7 @@
 ﻿using CSharp.Web.Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace CSharp.Web.Api.Controllers
 {
@@ -76,13 +77,18 @@ namespace CSharp.Web.Api.Controllers
         {
             List<int> numbers = new List<int>() { 1, 89, -9, 110, 876, 62432, 7, 86, -61};
 
+            var stopwatchAny = Stopwatch.StartNew();
             var any_status = numbers.Any(x => x > 0);// slow
+            stopwatchAny.Stop();
+            
+            var stopwatchExists = Stopwatch.StartNew();
             var exists_status = numbers.Exists(x => x > 0);// fast
+            stopwatchExists.Stop();
 
             return Ok(new
             {
-                any_status = any_status,
-                exists_status = exists_status
+                any_execution_time = $"Execution time for 'any_status': {stopwatchAny.ElapsedMilliseconds} ms",
+                exists_execution_time = $"Execution time for 'exists_status': {stopwatchExists.ElapsedMilliseconds} ms"
             });
         }
     }
