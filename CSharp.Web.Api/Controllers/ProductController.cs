@@ -30,5 +30,14 @@ namespace CSharp.Web.Api.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("PatternVA")]
+        public ActionResult PatternVA(int n)
+        {
+            var response = this._productService.PatternVA(n);
+
+            return Ok(response);
+        }
     }
 }
