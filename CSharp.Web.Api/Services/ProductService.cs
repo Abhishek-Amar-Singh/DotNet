@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace CSharp.Web.Api.Services
+﻿namespace CSharp.Web.Api.Services
 {
     public class ProductService : IProductService
     {
@@ -48,51 +46,55 @@ namespace CSharp.Web.Api.Services
             return musicians;
         }
 
-        public string PatternVA(int n)
+        public FrozenDictionary<int, string> FrozenDictCollection()
         {
-            int cn = n;
-            StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
-            while (n > 0)
+            var frozenDict = new Dictionary<int, string>()
             {
-                for (int i = 1; i <= n; i++)
-                {
-                    sb.Append(" * ");
-                }
-                int a = cn - n;//how many spaces?
-                n = n - 2;
-                for (int j = 1; j <= a; j++)
-                {
-                    sb.Append(" ");
-                    sb.Insert(0, " ");
-                }
-                sb.Append("\n");
-                sb2.Append(sb);
-                if (n > 0 == true)
-                {
-                    sb.Clear();
-                }
-            }
+                {2001, "The Fast and the Furious" },
+                {2003, "2 Fast 2 Furious" },
+                {2006, "The Fast and the Furious: Tokyo Drift" },
+                {2009, "Fast & Furious" },
+                {2011, "Fast Five" },
+                {2013, "Fast & Furious 6" },
+                {2015, "Furious 7" },
+                {2017, "The Fate of the Furious" },
+                {2021, "F9" },
+                {2023, "Fast X"}
+            }.ToFrozenDictionary();
 
-            var removeLastLinePattern = sb2.Replace(sb.ToString(), "");
-
-            string result = $"{removeLastLinePattern}{sb.Replace("\n", "")}{RevStr(sb2.ToString())}";
-
-            Console.WriteLine(result);
-
-            return result;
+            return frozenDict;
         }
 
-        string RevStr(string str)
+        public FrozenSet<int> FrozenSetCollection()
         {
-            StringBuilder sb = new StringBuilder();
-            char[] chars = str.ToCharArray();
-            for (int i = chars.Length - 1; i >= 0; i--)
-            {
-                sb.Append(chars[i]);
-            }
+            var frozenSet = new List<int>() { 1,2,3,4,5}.ToFrozenSet();
 
-            return sb.ToString();
+            return frozenSet;
+        }
+
+        public IDictionary<string, dynamic> JsonNodeExample()
+        {
+            var json = """
+                {
+                "name": "DotNet Core",
+                "version": [3.1, 5, 6, 7, 8],
+                "language": "C#"
+                }
+                """;
+
+            JsonNode? node = JsonNode.Parse(json);
+            JsonNode other = node!.DeepClone();
+            var flag = JsonNode.DeepEquals(node, other);
+
+            JsonArray jsonArray = new JsonArray(1,2,5,4,7,8);
+            IEnumerable<int> values = jsonArray.GetValues<int>().Where(i => i%2==0);
+
+            return new Dictionary<string, dynamic>
+            {
+                { "DeepEquals O/P", flag},
+                { "jsonArray O/P", values }
+            };
+
         }
     }
 }
