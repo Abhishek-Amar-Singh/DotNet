@@ -57,22 +57,42 @@ namespace CSharp.Web.Api.Services
             {
                 for (int i = 1; i <= n; i++)
                 {
-                    sb.Append("*");
+                    sb.Append(" * ");
                 }
                 int a = cn - n;//how many spaces?
                 n = n - 2;
-                for (int j= 1; j <= a; j++)
+                for (int j = 1; j <= a; j++)
                 {
                     sb.Append(" ");
                     sb.Insert(0, " ");
                 }
-                sb.Append("\\n");
+                sb.Append("\n");
                 sb2.Append(sb);
-                sb.Clear();
+                if (n > 0 == true)
+                {
+                    sb.Clear();
+                }
             }
-            string result = sb2.ToString();
+
+            var removeLastLinePattern = sb2.Replace(sb.ToString(), "");
+
+            string result = $"{removeLastLinePattern}{sb.Replace("\n", "")}{RevStr(sb2.ToString())}";
+
+            Console.WriteLine(result);
 
             return result;
+        }
+
+        string RevStr(string str)
+        {
+            StringBuilder sb = new StringBuilder();
+            char[] chars = str.ToCharArray();
+            for (int i = chars.Length - 1; i >= 0; i--)
+            {
+                sb.Append(chars[i]);
+            }
+
+            return sb.ToString();
         }
     }
 }

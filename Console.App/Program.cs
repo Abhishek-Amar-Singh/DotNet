@@ -1,47 +1,4 @@
 ﻿
-using System.Text;
+int i = 5;
 
-Console.Write("Enter n: ");
-int n = int.Parse(Console.ReadLine()!);
-int cn = n;
-StringBuilder sb = new StringBuilder();
-StringBuilder sb2 = new StringBuilder();
-while (n > 0)
-{
-    for (int i = 1; i <= n; i++)
-    {
-        sb.Append(" * ");
-    }
-    int a = cn - n;//how many spaces?
-    n = n - 2;
-    for (int j = 1; j <= a; j++)
-    {
-        sb.Append(" ");
-        sb.Insert(0, " ");
-    }
-    sb.Append("\n");
-    sb2.Append(sb);
-    if (n > 0 == true)
-    {
-        sb.Clear();
-    }
-}
-
-var removeLastLinePattern = sb2.Replace(sb.ToString(), "");
-
-string result = $"{removeLastLinePattern}{sb.Replace("\n", "")}{RevStr(sb2.ToString())}";
-
-Console.WriteLine(result);
-
-
-string RevStr(string str)
-{
-    StringBuilder sb = new StringBuilder();
-    char[] chars = str.ToCharArray();
-    for(int i = chars.Length - 1; i >= 0; i--)
-    {
-        sb.Append(chars[i]);
-    }
-
-    return sb.ToString();
-}
+Console.WriteLine(++i * ++i);
