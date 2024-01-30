@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using System.Collections.Frozen;
-using System.Text.Json.Nodes;
-
-namespace CSharp.Web.Api.Services
+﻿namespace CSharp.Web.Api.Services
 {
     public class ProductService : IProductService
     {
