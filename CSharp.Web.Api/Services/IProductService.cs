@@ -1,4 +1,5 @@
-﻿using System.Collections.Frozen;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Frozen;
 
 namespace CSharp.Web.Api.Services
 {
@@ -9,5 +10,7 @@ namespace CSharp.Web.Api.Services
         FrozenDictionary<int, string> FrozenDictCollection();
         FrozenSet<int> FrozenSetCollection();
         IDictionary<string, dynamic> JsonNodeExample();
+        bool MinStatementNull();
+        dynamic SpreadOperator();
     }
 }

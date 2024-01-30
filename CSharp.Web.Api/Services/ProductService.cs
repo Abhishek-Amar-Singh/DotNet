@@ -1,4 +1,5 @@
-﻿using System.Collections.Frozen;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using System.Collections.Frozen;
 using System.Text.Json.Nodes;
 
 namespace CSharp.Web.Api.Services
@@ -96,6 +97,48 @@ namespace CSharp.Web.Api.Services
             {
                 { "DeepEquals O/P", flag},
                 { "jsonArray O/P", values }
+            };
+
+        }
+
+        public record ClassA();
+        public bool MinStatementNull()
+        {
+            ClassA a = null;
+
+            if (a is null) a = new();
+
+            a = a is null ? new() : a;
+
+            a = a ?? new();
+
+            a ??= new();
+
+            return true;
+        }
+
+        public dynamic SpreadOperator()
+        {
+            int[] a = [1, 2, 3];
+            int[] b = [4, 5, 6];
+
+            //1st way
+            int[] e = new int[a.Length + b.Length];
+            a.CopyTo(e, 0);
+            b.CopyTo(e, 0);
+
+            //2nd way
+            int[] f = [];
+            f = a.ToArray().Concat(b).ToArray();
+
+            //3rd way
+            int[] d = [.. a, .. b];
+
+            return new
+            {
+                one = e,
+                two = f,
+                three = d
             };
 
         }

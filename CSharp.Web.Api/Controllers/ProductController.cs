@@ -91,5 +91,23 @@ namespace CSharp.Web.Api.Controllers
                 exists_execution_time = $"Execution time for 'exists_status': {stopwatchExists.ElapsedMilliseconds} ms"
             });
         }
+
+        [HttpGet]
+        [Route("minimized-statement-null")]
+        public ActionResult MinStatementNull()
+        {
+            var response = this._productService.MinStatementNull();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("SpreadOperator")]
+        public ActionResult SpreadOperator()
+        {
+            var response = this._productService.SpreadOperator();
+
+            return Ok(response);
+        }
     }
 }
